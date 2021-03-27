@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  tasks:
+  - name: Stop the running Container
+    command: docker stop mitpingserver
+    ignore_errors: True
+
+  - name: Remove the running Container
+    command: docker rm mitpingserver
+    ignore_errors: True
+
+  - name: Remove the Image
+    command: docker rmi erkumarv/mitpingimage
+    ignore_errors: True
+
+  - name: Pull the Docker Image
+    command: docker pull erkumarv/mitpingimage
+
+  - name: Run the Container
+    command: docker run -d -p 80:80 --name mitpingserver erkumarv/mitpingimage
